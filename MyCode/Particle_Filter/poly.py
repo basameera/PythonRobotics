@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.polynomial import Chebyshev as T
+from utils import create_toy_data
+
 
 if __name__ == "__main__":
 
@@ -30,7 +32,8 @@ if __name__ == "__main__":
     ax.grid(ls='--')
 
     ly = np.concatenate((y2, y1, y3))
-    ly = ly + abs(np.min(ly))
+    ly_min = abs(np.min(ly))
+    ly = ly + (ly_min*2)
     lx = np.arange(len(ly))
 
     # plot mountain
@@ -38,7 +41,15 @@ if __name__ == "__main__":
     ax.fill_between(lx, ly, color="green", alpha=0.6)
 
     # Plot plane route
-    ax.axhline(y=5, xmin=0, xmax=1, c='r', ls='--', lw=0.75)
+    ax.axhline(y=10, xmin=0, xmax=1, c='r', ls='--', lw=0.75)
+
+    # std
+    std = 1
+    ax.fill_between(lx, ly - std, ly + std,
+                    color="r", label="std.", alpha=0.5)
+
+    y_sine_noise = create_toy_data(ly, std)
+    ax.scatter(lx, y_sine_noise, c='b', marker='*', lw=0.5)
 
     ax.set_xlabel('X position (m)')
     ax.set_ylabel('Height (m)')
