@@ -2,10 +2,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy.polynomial import Chebyshev as T
 from utils import create_toy_data
+from skylynx.utils import cli_args
 
 if __name__ == "__main__":
+    # argparse
+    cli_params = dict(
+        DT=5,
+    )
+
+    args = cli_args(cli_params)
+
     velocity = 1  # m/s
-    DT = 5  # sec
+    DT = int(args['DT'])  # sec
     start_pos = 0  # meters
     time = 0.0
 
@@ -53,10 +61,6 @@ if __name__ == "__main__":
             ax.fill_between(lx, ly - std, ly + std,
                             color="gray", label="std.", alpha=0.5)
 
-            # noise within std
-
-            ax.scatter(lx, y_sine_noise, c='b', marker='*', lw=0.5)
-
             # Plot plane route
             ax.axhline(y=plane_height, xmin=0, xmax=1,
                        c='r', ls='--', lw=1)
@@ -64,8 +68,13 @@ if __name__ == "__main__":
             ax.scatter(pos, plane_height, c='r', lw=3, marker='>')
 
             # distance to current height
+            ax.scatter(pos, ly[pos], c='k', lw=2)
 
-            ax.scatter(pos, ly[pos], c='k', lw=3)
+            # noise within std
+            ax.scatter(lx, y_sine_noise, c='b', marker='*', lw=0.5, alpha=0.5)
+
+            # current noisy distance sample
+            ax.scatter(pos, y_sine_noise[pos], c='k', marker='*', lw=0.5)
 
             # settings
             ax.grid(True)
