@@ -118,10 +118,18 @@ class BayesFilterBoat(object):
     def get_me_prob(self, pred_boat_pos):
         new_me_y = np.zeros_like(self.sim_y)
         for n, me_x in enumerate(self.me_x):
-            idx = pred_boat_pos + me_x
-            if idx >= 0 and idx < self.simulation_scope:
-                new_me_y[idx] = self.me_y[n]
+            k = pred_boat_pos + me_x
+            if k >= 0 and k < self.simulation_scope:
+                new_me_y[k] = self.me_y[n]
         return new_me_y
+
+    def get_mo_prob(self, pos):
+        new_mo_y = np.zeros_like(self.sim_y)
+        for n, mo_x in enumerate(self.mo_x):
+            k = pos + mo_x
+            if k >= 0 and k < self.simulation_scope:
+                new_mo_y[k] = self.mo_y[n]
+        return new_mo_y
 
     def __call__(self, event):
 
@@ -141,6 +149,7 @@ class BayesFilterBoat(object):
                 pred_sim_y = self.sim_y * Z
                 # normamlize
                 self.sim_y = norm(pred_sim_y)
+                # self.pre_boat_pos = self.boat_pos
                 self.boat_pos = np.argmax(self.sim_y)
                 c, l = self.get_color_label()
                 bar_plot(self.ax_sim, self.sim_x, self.sim_y,
@@ -149,7 +158,25 @@ class BayesFilterBoat(object):
                 self.setup_ax_sim()
 
             else:
-                qwe = 'Motion'
+                idx = np.where(self.sim_y != 0)[0]
+
+                array = np.zeros(shape=(len(idx), len(self.sim_y)))
+
+                for n, i in enumerate(idx):
+                    array[n] = self.get_mo_prob(i) * self.sim_y[i]
+
+                pred_sim_y = np.sum(array, axis=0)
+                print(pred_sim_y)
+
+                self.sim_y = norm(pred_sim_y)
+                print(self.sim_y)
+                # self.pre_boat_pos = self.boat_pos
+                self.boat_pos = np.argmax(self.sim_y)
+                c, l = self.get_color_label()
+                bar_plot(self.ax_sim, self.sim_x, self.sim_y,
+                         color=c, label=l)
+                self.draw_boat(self.ax_sim, self.boat_pos)
+                self.setup_ax_sim()
 
             self.fig.canvas.draw()
 
