@@ -11,6 +11,8 @@
 * PDF as bar plot
 * Motion model
 * Mesurement model
+* Main window
+* Key press plot
 
 ### Reference
 
