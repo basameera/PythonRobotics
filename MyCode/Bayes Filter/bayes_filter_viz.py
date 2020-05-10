@@ -11,11 +11,7 @@ class BayesFilterBoat(object):
     def __init__(self):
         pass
 
-    def hello(self, msg):
-        print(msg)
-
 
 if __name__ == "__main__":
-    
+
     boat_bf = BayesFilterBoat()
-    boat_bf.hello('sameera')
