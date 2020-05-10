@@ -14,4 +14,5 @@ class BayesFilterBoat(object):
 
 if __name__ == "__main__":
 
+
     boat_bf = BayesFilterBoat()
