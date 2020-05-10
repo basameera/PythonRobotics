@@ -4,6 +4,31 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+def task_2():
+    """start
+    """
+
+    fig, axs = plt.subplots(1, 1, figsize=(8, 4))
+
+    simulation_scope = 10
+
+    # Initial p(x)
+    p = [0.5, 0.5]
+    y = np.array(p)
+
+    y = np.concatenate((y, np.zeros(simulation_scope-len(p),)))
+
+    x = np.arange(simulation_scope)
+
+    ax = axs
+    ax.set_title(r'Initial $p(x)$')
+    bar_plot(ax, x, y, color='k')
+
+    ax.set_xlim(-1, simulation_scope+1)
+
+    plt.show()
+
+
 def task_1():
     """PDF as bar plot
     """
@@ -44,3 +69,5 @@ if __name__ == "__main__":
     # PDF as bar plot
     if task == 1:
         task_1()
+    elif task == 2:
+        task_2()
