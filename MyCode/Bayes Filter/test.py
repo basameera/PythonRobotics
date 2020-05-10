@@ -2,6 +2,8 @@ from skylynx.utils import cli_args
 from utils import *
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.image as mpimg
+from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
 
 
 def ax_set_settings(ax):
@@ -15,6 +17,15 @@ def ax_set_settings(ax):
 
 
 click_counter = 0
+simulation_scope = 10
+boat = mpimg.imread('/home/sameera/Downloads/sailboat.png')
+
+
+def draw_boat(ax, x=0):
+    global boat
+    imagebox = OffsetImage(boat, zoom=0.2)
+    ab = AnnotationBbox(imagebox, (x, 0.8), frameon=False)
+    ax.add_artist(ab)
 
 
 def get_color_label():
@@ -39,17 +50,33 @@ def task_3():
             ax.clear()
             data = np.random.random((10,))
             c, l = get_color_label()
-            ax.scatter(data, data, c=c, label=l)
+            p = [0.5, 0.5, 1]
+            y = norm(p)
+            y = np.concatenate((y, np.zeros(simulation_scope-len(p),)))
+            x = np.arange(simulation_scope)
+
+            bar_plot(ax, x, y, color='tab:blue', label='Init')
+            draw_boat(ax, 2)
             ax_set_settings(ax)
 
             fig.canvas.draw()
             click_counter += 1
 
-    fig, axs = plt.subplots(1, 1, figsize=(14, 5))
+    fig, axs = plt.subplots(1, 1, figsize=(8, 4))
+    global simulation_scope
     ax = axs
 
     cid = fig.canvas.mpl_connect('key_release_event', onclick)
-    ax.plot(np.arange(0, 1, 0.1), c='tab:blue', label='Init')
+
+    # Initial p(x)
+    p = [0.6, 0.5]
+    y = np.array(p)
+    y = np.concatenate((y, np.zeros(simulation_scope-len(p),)))
+    x = np.arange(simulation_scope)
+
+    # ax.plot(np.arange(0, 1, 0.1), c='tab:blue', label='Init')
+    bar_plot(ax, x, y, color='tab:blue', label='Init')
+    draw_boat(ax)
     ax_set_settings(ax)
     plt.show()
 
@@ -59,15 +86,12 @@ def task_2():
     """
 
     fig, axs = plt.subplots(1, 1, figsize=(8, 4))
-
     simulation_scope = 10
 
     # Initial p(x)
     p = [0.5, 0.5]
     y = np.array(p)
-
     y = np.concatenate((y, np.zeros(simulation_scope-len(p),)))
-
     x = np.arange(simulation_scope)
 
     ax = axs

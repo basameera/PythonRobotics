@@ -13,6 +13,9 @@
 * Mesurement model
 * Main window
 * Key press plot
+* Main window handling class
+* B. F. calculations
+* draw boat
 
 ### Reference
 

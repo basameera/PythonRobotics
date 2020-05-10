@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def bar_plot(ax, x, y, color=None):
+def bar_plot(ax, x, y, color=None, label=''):
     """Bar Plot
 
     Parameters
@@ -12,15 +12,15 @@ def bar_plot(ax, x, y, color=None):
 
     """
 
-    ax.set_axisbelow(True)
-    ax.grid(ls='--')
-    ax.bar(x, y, color=color, width=0.5)
+    # ax.set_axisbelow(True)
+    # ax.grid(ls='--')
+    ax.bar(x, y, color=color, width=0.5, label=label)
     # plt.xlabel("File names")
     # plt.ylabel("Execution time (seconds)")
     # plt.title("Effects of Numba (loop of 1e6)")
     # plt.xticks(x_pos, x)
     # plt.savefig('stats.pdf')
-    ax.set_ylim(0, 1)
+    # ax.set_ylim(0, 1)
 
 
 def norm(x):
