@@ -6,6 +6,20 @@
 
 [Ref. 2](#reference)
 
+## Automatic sensor model estimate (ASME)
+
+**TODO**
+
+- [ ] Need to learn how `norm.fit()` work -> maximum likelihood
+
+Automatic sensor modeling flow:
+1. Move to a random position in space
+2. Take 200 samples (dataset)
+3. Using `norm.fit()` to estimate mu, std
+4. Do steps 1. to 3. for two more different random positions in space. (Now there's three mu values and std values)
+5. Get the avg. of all std values as the model parameter
+6. using this `std`, do `norm.fit()` again to refine the mu estimates.
+
 ### To Do
 
 * PDF as bar plot
