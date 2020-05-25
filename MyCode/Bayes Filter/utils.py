@@ -1,8 +1,28 @@
 import numpy as np
 
 
+def gen_pdf(x, mu=0.0, sigma=1.0):
+    r"""[summary]
+
+    Parameters
+    ----------
+    x : [type]
+        [description]
+    mu : float, optional
+        [description], by default 0.0
+    sigma : float, optional
+        [description], by default 1.0
+
+    Returns
+    -------
+    [type]
+        [description]
+    """    
+    return 1/(sigma * np.sqrt(2 * np.pi)) * np.exp(- (x - mu)**2 / (2 * sigma**2))
+
+
 def bar_plot(ax, x, y, color=None, label=''):
-    """Bar Plot
+    r"""Bar Plot
 
     Parameters
     ----------

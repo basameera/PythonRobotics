@@ -107,7 +107,7 @@ class BayesFilterBoat(object):
         self.ax_sim.set_title('Simulation', fontsize=10)
 
     def read_mesurement(self):
-        """NOTE: This need to change for better sim.
+        r"""NOTE: This need to change for better sim.
         At the moment, same mesurement model was used for reading mesurement.
 
         This give how much of a position change does happen from the current boat position
