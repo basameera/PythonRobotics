@@ -12,6 +12,9 @@
 
 - [ ] Need to learn how `norm.fit()` work -> maximum likelihood
 
+https://towardsdatascience.com/probability-concepts-explained-introduction-a7c0316de465
+https://towardsdatascience.com/probability-concepts-explained-maximum-likelihood-estimation-c7b4342fdbb1
+
 Automatic sensor modeling flow:
 1. Move to a random position in space
 2. Take 200 samples (dataset)
